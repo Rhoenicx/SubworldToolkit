@@ -1,0 +1,7 @@
+displayName = Subworld ToolKit
+author = Rhoenicx
+version = 1.0.0.0
+hideCode = false
+hideResources = false
+modReferences = SubworldLibrary
+buildIgnore = .gitignore, *.sln, *.csproj, *.user, obj\*, bin\*, .vs\*, Properties\*, .git\*

@@ -1,0 +1,14 @@
+Welcome to Subworld Toolkit!
+
+This mod contains useful settings for developers that want to set up subworlds using the Subworld Library mod.
+Subworld Toolkit aims to add a lot of easy to configure settings for subworlds without having to manually add vanilla code to your subworld.
+
+Hooks from ModSystem, GlobalNPC, GlobalTile and GlobalPeojectile are passed into the 'ExtendedSubworld' object for easy access. 
+This way you don't have to make multiple objects for each subworld.
+
+Simply reference this mod, add the .dll file as dependency and extend the 'ExtendedSubworld' object.
+Check the github repository for the current features/settings.
+
+If you're missing certain features please let me know!
+
+Good luck, Rhoenicx.
