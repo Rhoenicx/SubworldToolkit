@@ -17,7 +17,7 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 		{
 			case ItemID.GoblinBattleStandard:
 				{
-					if (ExtendedSubworldSystem.Current?.GoblinArmyEnabled == false)
+					if (ExtendedSubworldSystem.Current?.CanStartGoblinArmy == false)
 					{
 						return false;
 					}
@@ -26,7 +26,7 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 			
 			case ItemID.SnowGlobe:
 				{
-					if (ExtendedSubworldSystem.Current?.FrostLegionEnabled == false)
+					if (ExtendedSubworldSystem.Current?.CanStartFrostLegion == false)
 					{
 						return false;
 					}
@@ -35,7 +35,7 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 			
 			case ItemID.PirateMap:
 				{
-					if (ExtendedSubworldSystem.Current?.PirateInvasionEnabled == false)
+					if (ExtendedSubworldSystem.Current?.CanStartPirateInvasion == false)
 					{
 						return false;
 					}
@@ -44,7 +44,7 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 
 			case ItemID.PumpkinMoonMedallion:
 				{
-					if (ExtendedSubworldSystem.Current?.PumpkinMoonEnabled == false)
+					if (ExtendedSubworldSystem.Current?.CanStartPumpkinMoon == false)
 					{
 						return false;
 					}
@@ -53,7 +53,7 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 
 			case ItemID.NaughtyPresent:
 				{
-					if (ExtendedSubworldSystem.Current?.SnowMoonEnabled == false)
+					if (ExtendedSubworldSystem.Current?.CanStartSnowMoon == false)
 					{
 						return false;
 					}
@@ -62,7 +62,7 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 
 			case ItemID.BloodMoonStarter:
 				{
-					if (ExtendedSubworldSystem.Current?.BloodMoonEnabled == false)
+					if (ExtendedSubworldSystem.Current?.CanStartBloodMoon == false)
 					{
 						return false;
 					}
@@ -71,7 +71,7 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 
 			case ItemID.SolarTablet:
 				{
-					if (ExtendedSubworldSystem.Current?.SolarEclipseEnabled == false)
+					if (ExtendedSubworldSystem.Current?.CanStartSolarEclipse == false)
 					{
 						return false;
 					}

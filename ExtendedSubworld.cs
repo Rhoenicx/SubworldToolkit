@@ -39,7 +39,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// <see cref="ItemID.GoblinBattleStandard"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool GoblinArmyEnabled => VanillaUpdates;
+	public virtual bool CanStartGoblinArmy => VanillaUpdates;
+	public virtual bool AutoStopGoblinArmy => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the vanilla frost legion can be
@@ -50,7 +51,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// <see cref="ItemID.SnowGlobe"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool FrostLegionEnabled => VanillaUpdates;
+	public virtual bool CanStartFrostLegion => VanillaUpdates;
+	public virtual bool AutoStopFrostLegion => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the vanilla pirate invasion can be
@@ -61,7 +63,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// <see cref="ItemID.PirateMap"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool PirateInvasionEnabled => VanillaUpdates;
+	public virtual bool CanStartPirateInvasion => VanillaUpdates;
+	public virtual bool AutoStopPirateInvasion => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the martian madness invasion can be
@@ -72,7 +75,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// escapes.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool MartianMadnessEnabled => VanillaUpdates;
+	public virtual bool CanStartMartianMadness => VanillaUpdates;
+	public virtual bool AutoStopMartianMadness => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the vanilla pumpkin moon can be
@@ -82,7 +86,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// <see cref="ItemID.PumpkinMoonMedallion"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool PumpkinMoonEnabled => VanillaUpdates;
+	public virtual bool CanStartPumpkinMoon => VanillaUpdates;
+	public virtual bool AutoStopPumpkinMoon => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the vanilla pumpkin moon can be
@@ -92,7 +97,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// <see cref="ItemID.NaughtyPresent"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool SnowMoonEnabled => VanillaUpdates;
+	public virtual bool CanStartSnowMoon => VanillaUpdates;
+	public virtual bool AutoStopSnowMoon => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the latern night can be started
@@ -100,7 +106,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// of the latern night.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool LanternNightEnabled => VanillaUpdates;
+	public virtual bool CanStartLanternNight => VanillaUpdates;
+	public virtual bool AutoStopLanternNight => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the rain event can be used in the
@@ -109,7 +116,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// the natural spawn of the rain.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool RainEnabled => VanillaUpdates;
+	public virtual bool CanStartRain => VanillaUpdates;
+	public virtual bool AutoStopRain => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the slime rain event can be used in
@@ -118,7 +126,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// stopping the natural spawn of the slime rain event.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool SlimeRainEnabled => VanillaUpdates;
+	public virtual bool CanStartSlimeRain => VanillaUpdates;
+	public virtual bool AutoStopSlimeRain => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if a natural party can occur in the subworld.
@@ -126,7 +135,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// can still be started manually using the tile or code.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool BirthdayPartyEnabled => VanillaUpdates;
+	public virtual bool CanStartBirthdayParty => VanillaUpdates;
+	public virtual bool AutoStopBirthdayParty => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the Cultist Ritual spawn attempt runs
@@ -135,7 +145,7 @@ public abstract class ExtendedSubworld : Subworld
 	/// ritual check CultistRitual.CheckRitual.
 	/// </summary>
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
-	public virtual bool CultistRitualEnabled => VanillaUpdates;
+	public virtual bool CanStartCultistRitual => VanillaUpdates;
 
 	/// <summary>
 	/// Determines if a sandstorm can occur in the subworld.
@@ -144,16 +154,18 @@ public abstract class ExtendedSubworld : Subworld
 	/// is called.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool SandstormEnabled => VanillaUpdates;
+	public virtual bool CanStartSandstorm => VanillaUpdates;
+	public virtual bool AutoStopSandstorm => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the old one's army invasion can start
-	/// in te subworld. This prevents the event from starting
+	/// in the subworld. This prevents the event from starting
 	/// when <see cref="DD2Event.StartInvasion(int)"/>
 	/// is called.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool DD2EventEnabled => VanillaUpdates;
+	public virtual bool CanStartDD2Event => VanillaUpdates;
+	public virtual bool AutoStopDD2Event => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the blood moon event can occur in the 
@@ -161,14 +173,15 @@ public abstract class ExtendedSubworld : Subworld
 	/// summon item <see cref="ItemID.BloodMoonStarter"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool BloodMoonEnabled => VanillaUpdates;
+	public virtual bool CanStartBloodMoon => VanillaUpdates;
+	public virtual bool AutoStopBloodMoon => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if vanilla bosses should naturally spawn in
 	/// the subworld. Examples: Eye of Cthulhu, Mech bosses.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool NaturalSpawnBossesEnabled => VanillaUpdates;
+	public virtual bool CanNaturalSpawnBosses => VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the solar eclipse can happen in the subworld.
@@ -176,7 +189,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// <see cref="ItemID.SolarTablet"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool SolarEclipseEnabled => VanillaUpdates;
+	public virtual bool CanStartSolarEclipse => VanillaUpdates;
+	public virtual bool AutoStopSolarEclipse => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if the Lunar Events are enabled in the subworld.
@@ -185,7 +199,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// <see cref="WorldGen.TriggerLunarApocalypse"/> from executing.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool LunarEventsEnabled => VanillaUpdates;
+	public virtual bool CanStartLunarEvents => VanillaUpdates;
+	public virtual bool AutoStopLunarEvents => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if meteors can fall in this subworld.
@@ -193,7 +208,7 @@ public abstract class ExtendedSubworld : Subworld
 	/// and <see cref="WorldGen.dropMeteor"/>
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool MeteorFallEnabled => VanillaUpdates;
+	public virtual bool CanDropMeteors => VanillaUpdates;
 
 	/// <summary>
 	/// Determines if wind mechanics are enabled in the subworld.
@@ -342,7 +357,7 @@ public abstract class ExtendedSubworld : Subworld
 	public virtual void VerifyTime()
 	{
 		// Force disable lantern night
-		if (!LanternNightEnabled)
+		if (!CanStartLanternNight && AutoStopLanternNight)
 		{
 			LanternNight.GenuineLanterns = false;
 			LanternNight.ManualLanterns = false;
@@ -351,10 +366,10 @@ public abstract class ExtendedSubworld : Subworld
 		}
 
 		// Force disable all invasions
-		if ((!GoblinArmyEnabled && Main.invasionType == InvasionID.GoblinArmy)
-			|| (!FrostLegionEnabled && Main.invasionType == InvasionID.SnowLegion)
-			|| (!PirateInvasionEnabled && Main.invasionType == InvasionID.PirateInvasion)
-			|| (!MartianMadnessEnabled && Main.invasionType == InvasionID.MartianMadness))
+		if ((!CanStartGoblinArmy && Main.invasionType == InvasionID.GoblinArmy && AutoStopGoblinArmy)
+			|| (!CanStartFrostLegion && Main.invasionType == InvasionID.SnowLegion && AutoStopFrostLegion)
+			|| (!CanStartPirateInvasion && Main.invasionType == InvasionID.PirateInvasion && AutoStopPirateInvasion)
+			|| (!CanStartMartianMadness && Main.invasionType == InvasionID.MartianMadness && AutoStopMartianMadness))
 		{
 			Main.invasionDelay = 0;
 			Main.invasionType = 0;
@@ -367,50 +382,50 @@ public abstract class ExtendedSubworld : Subworld
 		}
 
 		// Force disable pumpkin moon
-		if (!PumpkinMoonEnabled)
+		if (!CanStartPumpkinMoon && AutoStopPumpkinMoon)
 		{
 			Main.pumpkinMoon = false;
 		}
 
 		// Force disable snow moon
-		if (!SnowMoonEnabled)
+		if (!CanStartSnowMoon && AutoStopSnowMoon)
 		{
 			Main.snowMoon = false;
 		}
 
 		// Force disable bloodmoon
-		if (!BloodMoonEnabled)
+		if (!CanStartBloodMoon && AutoStopBloodMoon)
 		{
 			Main.bloodMoon = false;
 		}
 
 		// Force disable eclipse
-		if (!SolarEclipseEnabled)
+		if (!CanStartSolarEclipse && AutoStopSolarEclipse)
 		{
 			Main.eclipse = false;
 		}
 
 		// Force disable rain
-		if (!RainEnabled)
+		if (!CanStartRain && AutoStopRain)
 		{
 			Main.StopRain();
 		}
 
 		// Force disable slime rain
-		if (!SlimeRainEnabled)
+		if (!CanStartSlimeRain && AutoStopSlimeRain)
 		{
 			Main.StopSlimeRain(false);
 		}
 
 		// Force disable sandstorm
-		if (!SandstormEnabled)
+		if (!CanStartSandstorm && AutoStopSandstorm)
 		{
 			Sandstorm.Happening = false;
 			Sandstorm.TimeLeft = 0.0;
 		}
 
 		// Force disable birtday party
-		if (!BirthdayPartyEnabled && BirthdayParty.PartyIsUp)
+		if (!CanStartBirthdayParty && AutoStopBirthdayParty && BirthdayParty.PartyIsUp)
 		{
 			BirthdayParty.ManualParty = false;
 			BirthdayParty.GenuineParty = false;
@@ -419,7 +434,7 @@ public abstract class ExtendedSubworld : Subworld
 		}
 
 		// Force disable DD2 Event
-		if (!DD2EventEnabled && DD2Event.Ongoing)
+		if (!CanStartDD2Event && AutoStopDD2Event && DD2Event.Ongoing)
 		{
 			DD2Event.Ongoing = false;
 			NPC.totalInvasionPoints = 0.0f;
@@ -429,13 +444,23 @@ public abstract class ExtendedSubworld : Subworld
 		}
 
 		// Force unspawn the travelling merchant
-		if (!TravellingMerchantEnabled && NPC.travelNPC)
+		if (!CanSpawnTravellingMerchant && AutoDespawnTravellingMerchant && NPC.travelNPC)
 		{
 			WorldGen.UnspawnTravelNPC();
 		}
 
+		// Force stop the lunar events
+		if (!CanStartLunarEvents && AutoStopLunarEvents && NPC.LunarApocalypseIsUp)
+		{ 
+			NPC.LunarApocalypseIsUp = false;
+			NPC.TowerActiveStardust = false;
+			NPC.TowerActiveNebula = false;
+			NPC.TowerActiveVortex = false;
+			NPC.TowerActiveSolar = false;
+		}
+
 		// Force disable meteor fall
-		if (!MeteorFallEnabled)
+		if (!CanDropMeteors)
 		{
 			WorldGen.spawnMeteor = false;
 		}
@@ -513,10 +538,10 @@ public abstract class ExtendedSubworld : Subworld
 	{
 		return type switch
 		{
-			InvasionID.GoblinArmy => GoblinArmyEnabled,
-			InvasionID.SnowLegion => FrostLegionEnabled,
-			InvasionID.PirateInvasion => PirateInvasionEnabled,
-			InvasionID.MartianMadness => MartianMadnessEnabled,
+			InvasionID.GoblinArmy => CanStartGoblinArmy,
+			InvasionID.SnowLegion => CanStartFrostLegion,
+			InvasionID.PirateInvasion => CanStartPirateInvasion,
+			InvasionID.MartianMadness => CanStartMartianMadness,
 			_ => true
 		};
 	}
@@ -529,7 +554,8 @@ public abstract class ExtendedSubworld : Subworld
 	/// NPC during <see cref="WorldGen.SpawnTravelNPC"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool TravellingMerchantEnabled => VanillaUpdates;
+	public virtual bool CanSpawnTravellingMerchant => VanillaUpdates;
+	public virtual bool AutoDespawnTravellingMerchant => !VanillaUpdates;
 
 	/// <summary>
 	/// Determines if town NPCs can automatically spawn in 
@@ -537,7 +563,7 @@ public abstract class ExtendedSubworld : Subworld
 	/// during <see cref="WorldGen.SpawnTownNPC(int, int)"/>.
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
-	public virtual bool TownNPCSpawningEnabled => VanillaUpdates;
+	public virtual bool CanSpawnTownNPCs => VanillaUpdates;
 
 	/// <summary>
 	/// Determines whether the NPC of the given type may

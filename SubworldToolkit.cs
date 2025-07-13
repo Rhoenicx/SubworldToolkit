@@ -255,7 +255,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_PumpkinMoonEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartPumpkinMoon", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -271,7 +271,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_SnowMoonEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartSnowMoon", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -280,7 +280,7 @@ public class SubworldToolkit : Mod
 
 		On_LanternNight.LanternsCanStart += (On_LanternNight.orig_LanternsCanStart orig) =>
 		{ 
-			return (ExtendedSubworldSystem.current?.LanternNightEnabled) != false && orig();
+			return (ExtendedSubworldSystem.current?.CanStartLanternNight) != false && orig();
 		};
 
 		IL_LanternNight.NaturalAttempt += (ILContext il) =>
@@ -292,7 +292,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_LanternNightEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartLanternNight", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -308,7 +308,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_LanternNightEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartLanternNight", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -324,7 +324,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_RainEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartRain", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -340,7 +340,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_SlimeRainEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartSlimeRain", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -356,7 +356,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_TravellingMerchantEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanSpawnTravellingMerchant", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -372,7 +372,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_TownNPCSpawningEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanSpawnTownNPCs", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ldc_I4_0);
 			c.Emit(OpCodes.Ret);
@@ -429,7 +429,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_BirthdayPartyEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartBirthdayParty", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -445,7 +445,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_BirthdayPartyEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartBirthdayParty", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -461,7 +461,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CultistRitualEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartCultistRitual", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -477,7 +477,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CultistRitualEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartCultistRitual", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ldc_I4_0);
 			c.Emit(OpCodes.Ret);
@@ -494,7 +494,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_SandstormEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartSandstorm", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -510,7 +510,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_DD2EventEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartDD2Event", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -541,7 +541,7 @@ public class SubworldToolkit : Mod
 				c.Emit(OpCodes.Ldsfld, current);
 				c.Emit(OpCodes.Brfalse, skip2);
 				c.Emit(OpCodes.Ldsfld, current);
-				c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_BloodMoonEnabled", BindingFlags.Instance | BindingFlags.Public));
+				c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartBloodMoon", BindingFlags.Instance | BindingFlags.Public));
 				c.Emit(OpCodes.Brfalse, exit);
 
 				c.MarkLabel(skip2);
@@ -585,7 +585,7 @@ public class SubworldToolkit : Mod
 				c.Emit(OpCodes.Ldsfld, current);
 				c.Emit(OpCodes.Brfalse, skip2);
 				c.Emit(OpCodes.Ldsfld, current);
-				c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_SolarEclipseEnabled", BindingFlags.Instance | BindingFlags.Public));
+				c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartSolarEclipse", BindingFlags.Instance | BindingFlags.Public));
 				c.Emit(OpCodes.Brfalse, exit);
 
 				c.MarkLabel(skip2);
@@ -605,7 +605,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_NaturalSpawnBossesEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanNaturalSpawnBosses", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ldc_I4_1);
 			c.Emit(OpCodes.Ret);
@@ -622,7 +622,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_LunarEventsEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanStartLunarEvents", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -638,7 +638,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_MeteorFallEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanDropMeteors", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -654,7 +654,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_MeteorFallEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanDropMeteors", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ret);
 
@@ -670,7 +670,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldsfld, current);
 			c.Emit(OpCodes.Brfalse, skip);
 			c.Emit(OpCodes.Ldsfld, current);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_MeteorFallEnabled", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("get_CanDropMeteors", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ldc_I4_0);
 			c.Emit(OpCodes.Ret);

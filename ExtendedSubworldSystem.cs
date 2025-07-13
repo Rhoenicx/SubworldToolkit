@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using SubworldLibrary;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.ModLoader;
 using System;
 using System.Reflection;
-using Terraria.IO;
 
 namespace SubworldToolkit;
 
@@ -16,16 +14,26 @@ public class ExtendedSubworldSystem : ModSystem
 
 	internal static ExtendedSubworld current;
 
-	public static Dictionary<string, Subworld> Subworlds;
+	public static List<Subworld> Subworlds;
+	public static Dictionary<string, Subworld> SubworldFromName;
+	public static Dictionary<Subworld, int> SubworldToID;
+	public static Dictionary<Type, int> SubworldTypeToID;
 	#endregion
 
 	public override void Load()
 	{
 		Subworlds = [];
+		SubworldFromName = [];
+		SubworldToID = [];
+		SubworldTypeToID = [];
+
 		List<Subworld> subworlds = typeof(SubworldSystem).GetField("subworlds", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) as List<Subworld>;
-		foreach (Subworld subworld in subworlds)
+		for (int i = 0; i < subworlds.Count; i++)
 		{
-			Subworlds.Add(subworld.FullName, subworld);
+			Subworlds.Add(subworlds[i]);
+			SubworldFromName.Add(subworlds[i].FullName, subworlds[i]);
+			SubworldToID.Add(subworlds[i], i);
+			SubworldTypeToID.Add(subworlds[i].GetType(), i);
 		}
 	}
 
@@ -33,6 +41,15 @@ public class ExtendedSubworldSystem : ModSystem
 	{
 		Subworlds?.Clear();
 		Subworlds = null;
+
+		SubworldFromName?.Clear();
+		SubworldFromName = null;
+
+		SubworldToID?.Clear();
+		SubworldToID = null;
+
+		SubworldTypeToID?.Clear();
+		SubworldTypeToID = null;
 	}
 
 	#region ---------- ModSystem => ExtendedSubworld ----------
