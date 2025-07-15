@@ -684,28 +684,40 @@ public abstract class ExtendedSubworld : Subworld
 	public virtual void EditSpawnRange(Player player, ref int spawnRangeX, ref int spawnRangeY, ref int safeRangeX, ref int safeRangeY) { }
 	#endregion
 
-	#region ---------- Tiles ----------
-	public virtual bool CanDrop(int i, int j, int type) => true;
+	#region ---------- Tiles/Walls ----------
+	public virtual bool CanDropTile(int i, int j, int type) => true;
 
-	public virtual bool CanExplode(int i, int j, int type) => true;
+	public virtual bool CanDropWall(int i, int j, int type) => true;
 
-	public virtual bool CanPlace(int i, int j, int type) => true;
+	public virtual bool CanExplodeTile(int i, int j, int type) => true;
 
-	public virtual bool CanPlaceTile(int i, int j, int type, int player, int style) => true;
+	public virtual bool CanExplodeWall(int i, int j, int type) => true;
+
+	public virtual bool CanPlaceTile(int i, int j, int type) => true;
+
+	public virtual bool CanPlaceTileWorldGen(int i, int j, int type, int player, int style) => true;
+
+	public virtual bool CanPlaceWall(int i, int j, int type) => true;
 
 	public virtual bool CanKillTile(int i, int j, int type, ref bool blockDamaged) => true;
 
-	public virtual bool CanReplace(int i, int j, int type, int tileTypeBeingPlaced) => true;
+	public virtual bool CanKillWall(int i, int j, int type) => true;
 
-	public virtual bool Slope(int i, int j, int type) => true;
+	public virtual bool CanReplaceTile(int i, int j, int type, int tileTypeBeingPlaced) => true;
+
+	public virtual bool SlopeTile(int i, int j, int type) => true;
 
 	public virtual bool TileFrame(int i, int j, int type, ref bool resetFrame, ref bool noBreak) => true;
 
-	public virtual bool AutoSelect(int i, int j, int type, Item item) => true;
+	public virtual bool WallFrame(int i, int j, int type, bool randomizeFrame, ref int style, ref int frameNumber) => true;
+
+	public virtual bool AutoSelectTile(int i, int j, int type, Item item) => true;
 
 	public virtual void DropCritterChance(int i, int j, int type, ref int wormChance, ref int grassHopperChance, ref int jungleGrubChance) { }
 
 	public virtual bool? IsTileDangerous(int i, int j, int type, Player player) => null;
+
+	public virtual bool CanBeTeleportedTo(int i, int j, int type, Player player, string context) => true;
 	#endregion
 
 	#region ---------- System ----------

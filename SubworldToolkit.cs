@@ -1176,7 +1176,7 @@ public class SubworldToolkit : Mod
 			c.Emit(OpCodes.Ldarg_2);
 			c.Emit(OpCodes.Ldarg, 5);
 			c.Emit(OpCodes.Ldarg, 6);
-			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanPlaceTile", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanPlaceTileWorldGen", BindingFlags.Instance | BindingFlags.Public));
 			c.Emit(OpCodes.Brtrue, skip);
 			c.Emit(OpCodes.Ldc_I4_0);
 			c.Emit(OpCodes.Ret);

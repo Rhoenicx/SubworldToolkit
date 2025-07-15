@@ -7,7 +7,7 @@ public class ExtendedSubworldGlobalTile : GlobalTile
 {
 	public override bool CanDrop(int i, int j, int type)
 	{
-		if (ExtendedSubworldSystem.Current?.CanDrop(i, j, type) == false)
+		if (ExtendedSubworldSystem.Current?.CanDropTile(i, j, type) == false)
 		{
 			return false;
 		}
@@ -17,7 +17,7 @@ public class ExtendedSubworldGlobalTile : GlobalTile
 
 	public override bool CanExplode(int i, int j, int type)
 	{
-		if (ExtendedSubworldSystem.Current?.CanExplode(i, j, type) == false)
+		if (ExtendedSubworldSystem.Current?.CanExplodeTile(i, j, type) == false)
 		{
 			return false;
 		}
@@ -27,7 +27,7 @@ public class ExtendedSubworldGlobalTile : GlobalTile
 
 	public override bool CanPlace(int i, int j, int type)
 	{
-		if (ExtendedSubworldSystem.Current?.CanPlace(i, j, type) == false)
+		if (ExtendedSubworldSystem.Current?.CanPlaceTile(i, j, type) == false)
 		{
 			return false;
 		}
@@ -47,7 +47,7 @@ public class ExtendedSubworldGlobalTile : GlobalTile
 
 	public override bool CanReplace(int i, int j, int type, int tileTypeBeingPlaced)
 	{
-		if (ExtendedSubworldSystem.Current?.CanReplace(i, j, type, tileTypeBeingPlaced) == false)
+		if (ExtendedSubworldSystem.Current?.CanReplaceTile(i, j, type, tileTypeBeingPlaced) == false)
 		{
 			return false;
 		}
@@ -57,7 +57,7 @@ public class ExtendedSubworldGlobalTile : GlobalTile
 
 	public override bool Slope(int i, int j, int type)
 	{
-		if (ExtendedSubworldSystem.Current?.Slope(i, j, type) == false)
+		if (ExtendedSubworldSystem.Current?.SlopeTile(i, j, type) == false)
 		{
 			return false;
 		}
@@ -77,7 +77,7 @@ public class ExtendedSubworldGlobalTile : GlobalTile
 
 	public override bool AutoSelect(int i, int j, int type, Item item)
 	{
-		if (ExtendedSubworldSystem.Current?.AutoSelect(i, j, type, item) == false)
+		if (ExtendedSubworldSystem.Current?.AutoSelectTile(i, j, type, item) == false)
 		{
 			return false;
 		}
