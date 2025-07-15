@@ -19,6 +19,12 @@ public class ExtendedSubworldPlayer : ModPlayer
 	public Dictionary<Guid, PlayerData> PlayerDataByGuid = [];
 
 	/// <summary>
+	/// The unique id saved upon joining a world. Used to access
+	/// player data for the current world.
+	/// </summary>
+	public Guid MainWorldUniqueID;
+
+	/// <summary>
 	/// Determines if the logout subworld and position should 
 	/// be restored upon entering a world for the first time.
 	/// This boolean is set to true during <see cref="Initialize"/>,
@@ -78,7 +84,7 @@ public class ExtendedSubworldPlayer : ModPlayer
 			}
 
 			playerData.HasLogoutSubworld = data.GetBool(nameof(PlayerData.HasLogoutSubworld));
-			playerData.LogoutSubworldID = data.GetString(nameof(playerData.LogoutSubworldID));
+			playerData.LogoutSubworldID = data.GetString(nameof(PlayerData.LogoutSubworldID));
 			playerData.HasLogoutPosition = data.GetBool(nameof(PlayerData.HasLogoutPosition));
 			playerData.LogoutPosition = data.Get<Vector2>(nameof(PlayerData.LogoutPosition));
 
@@ -120,6 +126,18 @@ public class ExtendedSubworldPlayer : ModPlayer
 		// Run the subworld logic for this player
 		ExtendedSubworldSystem.current?.OnEnterWorld(Player);
 
+		if (Main.netMode == NetmodeID.Server || Player.whoAmI != Main.myPlayer)
+		{
+			return;
+		}
+
+		// Save the unique id of the main world. Used to access
+		// the world specific data.
+		if (!SubworldSystem.AnyActive())
+		{
+			MainWorldUniqueID = Main.ActiveWorldFileData.UniqueId;
+		}
+
 		// Get the player's data for the current world
 		PlayerData data = GetPlayerData();
 
@@ -157,10 +175,10 @@ public class ExtendedSubworldPlayer : ModPlayer
 		PlayerDataByGuid ??= [];
 
 		// Check if the Player data for the current world exists
-		if (!PlayerDataByGuid.TryGetValue(SubworldToolkit.MainWorldUniqueID, out PlayerData data))
+		if (!PlayerDataByGuid.TryGetValue(MainWorldUniqueID, out PlayerData data))
 		{
 			data = new();
-			PlayerDataByGuid.Add(SubworldToolkit.MainWorldUniqueID, data);
+			PlayerDataByGuid.Add(MainWorldUniqueID, data);
 		}
 
 		return data;

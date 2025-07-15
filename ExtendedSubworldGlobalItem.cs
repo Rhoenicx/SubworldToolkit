@@ -150,6 +150,20 @@ public class ExtendedSubworldGlobalItem : GlobalItem
 					}
 				}
 				break;
+
+			case ItemID.DirtRod:
+				{
+					int x = (int)((double)Main.mouseX + Main.screenPosition.X) / 16;
+					int y = player.gravDir >= 0f
+						? (int)((double)Main.mouseY + Main.screenPosition.Y) / 16
+						: (int)(Main.screenPosition.Y + (double)Main.screenHeight - (double)Main.mouseY) / 16;
+
+					if (ExtendedSubworldSystem.Current?.CanUseDirtRod(player, Main.tile[x, y]) == false)
+					{
+						return false;
+					}
+				}
+				break;
 		}
 		
 		return base.CanUseItem(item, player);

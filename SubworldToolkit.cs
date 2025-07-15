@@ -12,28 +12,21 @@ using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using Terraria.IO;
+using System.IO;
 
 namespace SubworldToolkit;
 
 public class SubworldToolkit : Mod
 {
 	public static SubworldToolkit Instance;
-	private static FieldInfo main;
 	private static FieldInfo current;
 	private static List<int> npcPriorityOrder;
-
-	public static Guid MainWorldUniqueID => SubworldSystem.AnyActive() ? ((WorldFileData)main.GetValue(null)).UniqueId : Main.ActiveWorldFileData.UniqueId;
 
 	#region ---------- Load ----------
 	public override void Load()
 	{
 		#region ----- Instance -----
 		Instance = this;
-		#endregion
-
-		#region ----- main -----
-		main = typeof(SubworldSystem).GetField("main", BindingFlags.Static | BindingFlags.NonPublic);
 		#endregion
 
 		#region ----- Patch Current -----
@@ -1152,6 +1145,114 @@ public class SubworldToolkit : Mod
 				Instance.Logger.Debug("FAILED: ");
 			}
 		};
+
+		IL_WorldGen.PlaceTile += (ILContext il) =>
+		{
+			ILCursor c = new(il);
+
+			ILLabel skip = c.DefineLabel();
+			ILLabel skip2 = c.DefineLabel();
+
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Brfalse, skip);
+			c.Emit(OpCodes.Ldarg_2);
+			c.Emit(OpCodes.Ldc_I4, TileID.MagicalIceBlock);
+			c.Emit(OpCodes.Bne_Un, skip2);
+
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Ldarg_0);
+			c.Emit(OpCodes.Ldarg_1);
+			c.Emit(OpCodes.Ldarg, 5);
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanPlaceIceBlock", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Brtrue, skip2);
+			c.Emit(OpCodes.Ldc_I4_0);
+			c.Emit(OpCodes.Ret);
+
+			c.MarkLabel(skip2);
+
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Ldarg_0);
+			c.Emit(OpCodes.Ldarg_1);
+			c.Emit(OpCodes.Ldarg_2);
+			c.Emit(OpCodes.Ldarg, 5);
+			c.Emit(OpCodes.Ldarg, 6);
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanPlaceTile", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Brtrue, skip);
+			c.Emit(OpCodes.Ldc_I4_0);
+			c.Emit(OpCodes.Ret);
+
+			c.MarkLabel(skip);
+		};
+
+		IL_Player.DoBootsEffect += (ILContext il) =>
+		{
+			ILCursor c = new(il);
+
+			ILLabel skip = c.DefineLabel();
+
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Brfalse, skip);
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Ldarg_0);
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanDoBootsEffects", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Brtrue, skip);
+			c.Emit(OpCodes.Ret);
+
+			c.MarkLabel(skip);
+		};
+
+		IL_Player.ItemCheck_UseBuckets += (ILContext il) =>
+		{
+			ILCursor c = new(il);
+
+			ILLabel skip = c.DefineLabel();
+
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Brfalse, skip);
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Ldarg_0);
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanUseBuckets", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Brtrue, skip);
+			c.Emit(OpCodes.Ret);
+
+			c.MarkLabel(skip);
+		};
+
+		IL_Player.MowGrassTile += (ILContext il) =>
+		{
+			ILCursor c = new(il);
+
+			ILLabel skip = c.DefineLabel();
+
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Brfalse, skip);
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Ldarg_0);
+			c.Emit(OpCodes.Ldarg_1);
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanMowGrassTile", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Brtrue, skip);
+			c.Emit(OpCodes.Ret);
+
+			c.MarkLabel(skip);
+		};
+
+		IL_Player.CanDoWireStuffHere += (ILContext il) =>
+		{
+			ILCursor c = new(il);
+
+			ILLabel skip = c.DefineLabel();
+
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Brfalse, skip);
+			c.Emit(OpCodes.Ldsfld, current);
+			c.Emit(OpCodes.Ldarg_0);
+			c.Emit(OpCodes.Callvirt, typeof(ExtendedSubworld).GetMethod("CanDoWireStuffHere", BindingFlags.Instance | BindingFlags.Public));
+			c.Emit(OpCodes.Brtrue, skip);
+			c.Emit(OpCodes.Ldc_I4_0);
+			c.Emit(OpCodes.Ret);
+
+			c.MarkLabel(skip);
+		};
 		#endregion
 	}
 	#endregion
@@ -1246,4 +1347,83 @@ public class SubworldToolkit : Mod
 		}
 	}
 	#endregion
+
+	#region ---------- Network ----------
+	public override void HandlePacket(BinaryReader reader, int whoAmI)
+	{
+		SubworldToolkitMessageType messageType = (SubworldToolkitMessageType)reader.ReadByte();
+
+		switch (messageType)
+		{
+			case SubworldToolkitMessageType.WorldData:
+				{ 
+					BitsByte flags = (BitsByte)reader.ReadByte();
+					int time = reader.ReadInt32();
+					byte moonPhase = reader.ReadByte();
+					byte sundialCooldown = reader.ReadByte();
+					byte moondialCooldown = reader.ReadByte();
+
+					if (ExtendedSubworldSystem.current == null)
+					{
+						break;
+					}
+
+					if (ExtendedSubworldSystem.current.SynchronizeTime)
+					{
+						Main.time = time;
+						Main.dayTime = flags[0];
+						Main.fastForwardTimeToDawn = flags[1];
+						Main.sundialCooldown = sundialCooldown;
+						Main.fastForwardTimeToDusk = flags[2];
+						Main.moondialCooldown = moondialCooldown;
+					}
+
+					if (ExtendedSubworldSystem.current.SynchronizeMoonPhase)
+					{
+						Main.moonPhase = moonPhase;
+					}
+
+					if (ExtendedSubworldSystem.current.SynchronizePumpkinMoon)
+					{
+						Main.pumpkinMoon = flags[3];
+					}
+
+					if (ExtendedSubworldSystem.current.SynchronizeBloodMoon)
+					{
+						Main.bloodMoon = flags[4];
+					}
+
+					if (ExtendedSubworldSystem.current.SynchronizeSnowMoon)
+					{
+						Main.snowMoon = flags[5];
+					}
+
+					if (ExtendedSubworldSystem.current.SynchronizeSolarEclipse)
+					{
+						Main.eclipse = flags[6];
+					}
+				}
+				break;
+
+			case SubworldToolkitMessageType.Sundial:
+				{
+					Main.Sundialing();
+				}
+				break;
+
+			case SubworldToolkitMessageType.Moondial:
+				{
+					Main.Moondialing();
+				}
+				break;
+		}
+	}
+	#endregion
+}
+
+public enum SubworldToolkitMessageType
+{ 
+	WorldData,
+	Sundial,
+	Moondial,
 }

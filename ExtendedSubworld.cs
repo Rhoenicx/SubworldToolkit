@@ -18,6 +18,89 @@ public abstract class ExtendedSubworld : Subworld
 	/// <br/> Returns true by default.
 	/// </summary>
 	public override bool NormalUpdates => true;
+
+	public override void CopyMainWorldData()
+	{
+		if (SynchronizeTime)
+		{
+			SubworldSystem.CopyWorldData(nameof(Main.time), (int)Main.time);
+			SubworldSystem.CopyWorldData(nameof(Main.dayTime), Main.dayTime);
+			SubworldSystem.CopyWorldData(nameof(Main.fastForwardTimeToDawn), Main.fastForwardTimeToDawn);
+			SubworldSystem.CopyWorldData(nameof(Main.sundialCooldown), Main.sundialCooldown);
+			SubworldSystem.CopyWorldData(nameof(Main.fastForwardTimeToDusk), Main.fastForwardTimeToDusk);
+			SubworldSystem.CopyWorldData(nameof(Main.moondialCooldown), Main.moondialCooldown);
+		}
+
+		if (SynchronizeMoonPhase)
+		{
+			SubworldSystem.CopyWorldData(nameof(Main.moonPhase), Main.moonPhase);
+		}
+
+		if (SynchronizePumpkinMoon)
+		{
+			SubworldSystem.CopyWorldData(nameof(Main.pumpkinMoon), Main.pumpkinMoon);
+		}
+
+		if (SynchronizeBloodMoon)
+		{
+			SubworldSystem.CopyWorldData(nameof(Main.bloodMoon), Main.bloodMoon);
+		}
+
+		if (SynchronizeSnowMoon)
+		{
+			SubworldSystem.CopyWorldData(nameof(Main.snowMoon), Main.snowMoon);
+		}
+
+		if (SynchronizeSolarEclipse)
+		{
+			SubworldSystem.CopyWorldData(nameof(Main.eclipse), Main.eclipse);
+		}
+	}
+
+	public override void ReadCopiedMainWorldData()
+	{
+		if (SynchronizeTime)
+		{
+			ExtendedSubworldSystem.SetTime = true;
+			ExtendedSubworldSystem.Time = SubworldSystem.ReadCopiedWorldData<int>(nameof(Main.time));
+			ExtendedSubworldSystem.DayTime = SubworldSystem.ReadCopiedWorldData<bool>(nameof(Main.dayTime));
+			ExtendedSubworldSystem.FastForwardTimeToDawn = SubworldSystem.ReadCopiedWorldData<bool>(nameof(Main.fastForwardTimeToDawn));
+			ExtendedSubworldSystem.SundialCooldown = SubworldSystem.ReadCopiedWorldData<int>(nameof(Main.sundialCooldown));
+			ExtendedSubworldSystem.FastForwardTimeToDusk = SubworldSystem.ReadCopiedWorldData<bool>(nameof(Main.fastForwardTimeToDusk));
+			ExtendedSubworldSystem.MoondialCooldown = SubworldSystem.ReadCopiedWorldData<int>(nameof(Main.moondialCooldown));
+		}
+
+		if (SynchronizeMoonPhase)
+		{ 
+			ExtendedSubworldSystem.SetMoonPhase = true;
+			ExtendedSubworldSystem.MoonPhase = SubworldSystem.ReadCopiedWorldData<int>(nameof(Main.moonPhase));
+		}
+
+		if (SynchronizePumpkinMoon)
+		{
+			ExtendedSubworldSystem.SetPumpkinMoon = true;
+			ExtendedSubworldSystem.PumpkinMoon = SubworldSystem.ReadCopiedWorldData<bool>(nameof(Main.pumpkinMoon));
+		}
+
+		if (SynchronizeBloodMoon)
+		{
+			ExtendedSubworldSystem.SetBloodMoon = true;
+			ExtendedSubworldSystem.BloodMoon = SubworldSystem.ReadCopiedWorldData<bool>(nameof(Main.bloodMoon));
+		}
+
+		if (SynchronizeSnowMoon)
+		{
+			ExtendedSubworldSystem.SetSnowMoon = true;
+			ExtendedSubworldSystem.SnowMoon = SubworldSystem.ReadCopiedWorldData<bool>(nameof(Main.snowMoon));
+		}
+
+		if (SynchronizeSolarEclipse)
+		{
+			ExtendedSubworldSystem.SetSolarEclipse = true;
+			ExtendedSubworldSystem.SolarEclipse = SubworldSystem.ReadCopiedWorldData<bool>(nameof(Main.eclipse));
+		}
+	}
+
 	#endregion
 
 	#region ---------- Updates ----------
@@ -88,6 +171,7 @@ public abstract class ExtendedSubworld : Subworld
 	/// </summary>
 	public virtual bool CanStartPumpkinMoon => VanillaUpdates;
 	public virtual bool AutoStopPumpkinMoon => !VanillaUpdates;
+	public virtual bool SynchronizePumpkinMoon => false;
 
 	/// <summary>
 	/// Determines if the vanilla pumpkin moon can be
@@ -99,6 +183,7 @@ public abstract class ExtendedSubworld : Subworld
 	/// </summary>
 	public virtual bool CanStartSnowMoon => VanillaUpdates;
 	public virtual bool AutoStopSnowMoon => !VanillaUpdates;
+	public virtual bool SynchronizeSnowMoon => false;
 
 	/// <summary>
 	/// Determines if the latern night can be started
@@ -175,6 +260,7 @@ public abstract class ExtendedSubworld : Subworld
 	/// </summary>
 	public virtual bool CanStartBloodMoon => VanillaUpdates;
 	public virtual bool AutoStopBloodMoon => !VanillaUpdates;
+	public virtual bool SynchronizeBloodMoon => false;
 
 	/// <summary>
 	/// Determines if vanilla bosses should naturally spawn in
@@ -191,6 +277,7 @@ public abstract class ExtendedSubworld : Subworld
 	/// </summary>
 	public virtual bool CanStartSolarEclipse => VanillaUpdates;
 	public virtual bool AutoStopSolarEclipse => !VanillaUpdates;
+	public virtual bool SynchronizeSolarEclipse => false;
 
 	/// <summary>
 	/// Determines if the Lunar Events are enabled in the subworld.
@@ -329,6 +416,10 @@ public abstract class ExtendedSubworld : Subworld
 	/// </summary>
 	public virtual bool SkipTimeEnabled => DayNightCycleEnabled;
 
+	public virtual bool SynchronizeTime => false;
+
+	public virtual bool SynchronizeMoonPhase => false;
+
 	/// <summary>
 	/// Determines if players (and modders) can use 
 	/// <see cref="Main.Sundialing"/> to start
@@ -346,7 +437,6 @@ public abstract class ExtendedSubworld : Subworld
 	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
 	/// </summary>
 	public virtual bool MoondialEnabled => VanillaUpdates;
-
 
 	/// <summary>
 	/// Special hook of SubworldToolkit, this hook will take
@@ -601,6 +691,8 @@ public abstract class ExtendedSubworld : Subworld
 
 	public virtual bool CanPlace(int i, int j, int type) => true;
 
+	public virtual bool CanPlaceTile(int i, int j, int type, int player, int style) => true;
+
 	public virtual bool CanKillTile(int i, int j, int type, ref bool blockDamaged) => true;
 
 	public virtual bool CanReplace(int i, int j, int type, int tileTypeBeingPlaced) => true;
@@ -669,6 +761,14 @@ public abstract class ExtendedSubworld : Subworld
 	#endregion
 
 	#region ---------- Items ----------
+	/// <summary>
+	/// Determines if the <see cref="ItemID.IceRod"/> can
+	/// create ice blocks on the given location in the 
+	/// subworld.
+	/// <br/>Returns <see cref="VanillaUpdates"/> by default.
+	/// </summary>
+	public virtual bool CanPlaceIceBlock(int i, int j, int player) => VanillaUpdates;
+
 	public virtual bool CanUseItem(Item item, Player player) => true;
 
 	public virtual bool? CanCatchNPC(Item item, NPC target, Player player) => null;
@@ -679,6 +779,40 @@ public abstract class ExtendedSubworld : Subworld
 	#endregion
 
 	#region ---------- Players ----------
+	/// <summary>
+	/// Determines if boots like <see cref="ItemID.FlowerBoots"/>
+	/// can place tiles on certain tiles in the subworld.
+	/// Returns true by default.
+	/// </summary>
+	public virtual bool CanDoBootsEffects(Player player) => true;
+
+	/// <summary>
+	/// Determines if the player can use buckets in the subworld.
+	/// Returns true by default.
+	/// </summary>
+	public virtual bool CanUseBuckets(Player player) => true;
+
+	/// <summary>
+	/// Determines if the player can use the lawn mower to alter
+	/// grass tiles in the subworld.
+	/// Returns true by default.
+	/// </summary>
+	public virtual bool CanMowGrassTile(Player player, Vector2 position) => true;
+
+	/// <summary>
+	/// Determines if the tile can be affected by <see cref="ItemID.DirtRod"/>
+	/// Returns true by default.
+	/// </summary>
+	public virtual bool CanUseDirtRod(Player player, Tile tile) => true;
+
+	/// <summary>
+	/// Determines if the player can use any wiring tools to
+	/// edit the wiring on the position <see cref="Player.tileTargetX"/> by
+	/// <see cref="Player.tileTargetY"/>.
+	/// Returns true by default.
+	/// </summary>
+	public virtual bool CanDoWireStuffHere(Player player) => true;
+
 	/// <summary>
 	/// Determines if the player can use wings to fly in this
 	/// subworld. This is used during <see cref="UpdateEquips(Player)"/>.
